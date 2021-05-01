@@ -58,14 +58,18 @@ Vagrant.configure("2") do |config|
     apt-get autoclean
     apt-get clean
     snap refresh
+    echo ""
     echo "complete."
+    echo ""
     
     # install packages
     echo "--------------------"
     echo "install packages"
     echo "--------------------"
     apt-get install -y bridge-utils curl dnsutils lsb-release lsof  man tree zip unzip
+    echo ""
     echo "complete."
+    echo ""
     
     # disable ipv6
     echo "--------------------"
@@ -73,7 +77,9 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     sed -i.`date '+%Y%m%d-%H%M%S'` 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' /etc/default/grub
     update-grub
+    echo ""
     echo "complete."
+    echo ""
     
     # disable systemd-networkd-wait-online.service
     echo "--------------------"
@@ -81,7 +87,9 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     systemctl disable systemd-networkd-wait-online.service
     systemctl mask systemd-networkd-wait-online.service
+    echo ""
     echo "complete."
+    echo ""
     
     # set ntp server
     echo "--------------------"
@@ -89,14 +97,18 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     sed -i.`date '+%Y%m%d-%H%M%S'` 's/#NTP=/NTP=ntp.nict.jp ntp.jst.mfeed.ad.jp/' /etc/systemd/timesyncd.conf
     systemctl restart systemd-timesyncd
+    echo ""
     echo "complete."
+    echo ""
     
     # set timezone
     echo "--------------------"
     echo "set timezone"
     echo "--------------------"
     timedatectl set-timezone Asia/Tokyo
+    echo ""
     echo "complete."
+    echo ""
     
     # set locale
     echo "--------------------"
@@ -105,14 +117,18 @@ Vagrant.configure("2") do |config|
     apt-get install -y language-pack-ja-base language-pack-ja
     update-locale LANG=ja_JP.UTF-8
     cat /vagrant.conf/set-locale.txt >> /etc/bash.bashrc
+    echo ""
     echo "complete."
+    echo ""
     
     # set default editor
     echo "--------------------"
     echo "set default editor"
     echo "--------------------"
     update-alternatives --set editor /usr/bin/vim.basic
+    echo ""
     echo "complete."
+    echo ""
     
     # setup lxd
     echo "--------------------"
@@ -122,7 +138,9 @@ Vagrant.configure("2") do |config|
     cp /vagrant.conf/add-bridge.sh /etc/rc.local
     chmod 700 /etc/rc.local
     /bin/bash /vagrant.conf/lxd-setup.sh
+    echo ""
     echo "complete."
+    echo ""
     
     # reboot
     echo "--------------------"
