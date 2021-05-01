@@ -51,9 +51,12 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     echo "system update"
     echo "--------------------"
-    apt update
-    apt upgrade -y
-    apt autoremove -y
+    apt-get update
+    apt-get upgrade -y
+    apt-get full-upgrade -y
+    apt-get autoremove -y
+    apt-get autoclean
+    apt-get clean
     snap refresh
     echo "complete."
     
@@ -61,7 +64,7 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     echo "install packages"
     echo "--------------------"
-    apt install -y bridge-utils curl dnsutils lsb-release lsof  man tree zip unzip
+    apt-get install -y bridge-utils curl dnsutils lsb-release lsof  man tree zip unzip
     echo "complete."
     
     # disable ipv6
