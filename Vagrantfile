@@ -99,13 +99,9 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     echo "set locale"
     echo "--------------------"
-    apt install -y language-pack-ja
+    apt-get install -y language-pack-ja-base language-pack-ja
     update-locale LANG=ja_JP.UTF-8
-    echo "" >> /etc/bash.bashrc
-    echo "# set locale" >> /etc/bash.bashrc
-    echo "if [ -f /etc/default/locale ]; then" >> /etc/bash.bashrc
-    echo "    . /etc/default/locale" >> /etc/bash.bashrc
-    echo "fi" >> /etc/bash.bashrc
+    cat /vagrant.conf/set-locale.txt >> /etc/bash.bashrc
     echo "complete."
     
     # set default editor
