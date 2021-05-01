@@ -92,7 +92,7 @@ Vagrant.configure("2") do |config|
     echo "--------------------"
     echo "set timezone"
     echo "--------------------"
-    unlink /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+    timedatectl set-timezone Asia/Tokyo
     echo "complete."
     
     # set locale
