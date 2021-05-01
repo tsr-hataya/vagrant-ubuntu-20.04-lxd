@@ -2,11 +2,12 @@
 
 ## 概要
 
-Ubuntu 20.04 に LXD/LXC をセットアップしてコンテナ基盤を作る。  
+Vagrant を使って Oracle MV VirtualBox に Ubuntu 20.04 をインストールして LXD/LXC をセットアップしてコンテナ基盤を作る。  
 
 
 ## 使用条件
 
+* vagrant-disksize プラグインがインストールされているころ  
 * Provider(バックエンドの仮想化ルーツ)は Oracle VM VirtualBox 6.1.x を使用  
 * ホストオンリーアダプターが必要  
 * ホストオンリーアダプターのIPv6設定が無効化されていること  
