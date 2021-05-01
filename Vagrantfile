@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
   
   config.vm.box = "ubuntu/focal64"
   config.vm.network "private_network", ip: "192.168.56.11"
-  config.vm.hostname = "ubuntu"
+  config.vm.hostname = "ubuntu-focal-lxd"
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder "./vagrant.conf", "/vagrant.conf", create: true
   config.disksize.size = "40GB"
