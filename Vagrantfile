@@ -26,6 +26,16 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.provision "shell", inline: <<-SHELL
+    # set dns server
+    echo "--------------------"
+    echo "set dns server"
+    echo "--------------------"
+    sed -i.`date '+%Y%m%d-%H%M%S'` 's/#DNS=/DNS=8.8.8.8 8.8.8.4/' /etc/systemd/resolved.conf
+    systemctl restart systemd-resolved
+    echo ""
+    echo "complete."
+    echo ""
+    
     # modify sources.list
     echo "--------------------"
     echo "modify sources.list"
