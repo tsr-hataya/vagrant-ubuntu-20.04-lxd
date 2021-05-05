@@ -1,0 +1,17 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    ==NIC1==:
+      dhcp4: false
+  bridges:
+    lxdbr1:
+      interfaces:
+        - ==NIC1==
+      dhcp4: false
+      addresses:
+        - ==IPADDR1==
+      parameters:
+        forward-delay: 0
+        stp: false
+      optional: true
