@@ -38,7 +38,7 @@ echo "gpasswd --add vagrant lxd"
 gpasswd --add vagrant lxd
 
 # lxd init 実行
-echo "lxd init --preseed < /vagrant.conf.d/lxd_init.yml"
-lxd init --preseed < /vagrant.conf.d/lxd_init.yml
+echo "lxd init --preseed < /vagrant.conf.d/lxd-init.yml"
+lxd init --preseed < /vagrant.conf.d/lxd-init.yml
 
 echo ""
