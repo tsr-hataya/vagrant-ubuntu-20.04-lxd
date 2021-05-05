@@ -2,9 +2,10 @@ Vagrant.configure("2") do |config|
   
   config.vm.box = "ubuntu/focal64"
   config.vm.network "private_network", ip: "192.168.56.11"
-  config.vm.hostname = "ubuntu-focal-lxd"
+  config.vm.hostname = "ubuntu-lxd"
   config.vm.synced_folder ".", "/vagrant", disabled: true
-  config.vm.synced_folder "./vagrant.conf", "/vagrant.conf", create: true
+  config.vm.synced_folder "./vagrant.sh.d", "/vagrant.sh.d", create: true
+  config.vm.synced_folder "./vagrant.conf.d", "/vagrant.conf.d", create: true
   config.disksize.size = "40GB"
   
   config.vm.provider "virtualbox" do |vb|
@@ -25,132 +26,8 @@ Vagrant.configure("2") do |config|
     ]
   end
   
-  config.vm.provision "shell", inline: <<-SHELL
-    # set dns server
-    echo "--------------------"
-    echo "set dns server"
-    echo "--------------------"
-    sed -i.`date '+%Y%m%d-%H%M%S'` 's/#DNS=/DNS=8.8.8.8 8.8.8.4/' /etc/systemd/resolved.conf
-    systemctl restart systemd-resolved
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # modify sources.list
-    echo "--------------------"
-    echo "modify sources.list"
-    echo "--------------------"
-    wget -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | sudo apt-key add -
-    wget -q https://www.ubuntulinux.jp/ubuntu-jp-ppa-keyring.gpg -O- | sudo apt-key add -
-    wget -q https://www.ubuntulinux.jp/sources.list.d/focal.list -O /etc/apt/sources.list.d/ubuntu-focal_ja.list
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # update
-    echo "--------------------"
-    echo "system update"
-    echo "--------------------"
-    apt-get update
-    apt-get upgrade -y
-    apt-get full-upgrade -y
-    apt-get autoremove -y
-    apt-get autoclean
-    apt-get clean
-    snap refresh
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # install packages
-    echo "--------------------"
-    echo "install packages"
-    echo "--------------------"
-    apt-get install -y bridge-utils curl dnsutils lsb-release lsof  man tree zip unzip
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # disable ipv6
-    echo "--------------------"
-    echo "disable ipv6"
-    echo "--------------------"
-    sed -i.`date '+%Y%m%d-%H%M%S'` 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="ipv6.disable=1"/' /etc/default/grub
-    update-grub
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # disable systemd-networkd-wait-online.service
-    echo "--------------------"
-    echo "disable systemd-networkd-wait-online.service"
-    echo "--------------------"
-    systemctl disable systemd-networkd-wait-online.service
-    systemctl mask systemd-networkd-wait-online.service
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # set ntp server
-    echo "--------------------"
-    echo "set ntp server"
-    echo "--------------------"
-    sed -i.`date '+%Y%m%d-%H%M%S'` 's/#NTP=/NTP=ntp.nict.jp ntp.jst.mfeed.ad.jp/' /etc/systemd/timesyncd.conf
-    systemctl restart systemd-timesyncd
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # set timezone
-    echo "--------------------"
-    echo "set timezone"
-    echo "--------------------"
-    timedatectl set-timezone Asia/Tokyo
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # set locale
-    echo "--------------------"
-    echo "set locale"
-    echo "--------------------"
-    apt-get install -y language-pack-ja-base language-pack-ja
-    update-locale LANG=ja_JP.UTF-8
-    cat /vagrant.conf/set-locale.txt >> /etc/bash.bashrc
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # set default editor
-    echo "--------------------"
-    echo "set default editor"
-    echo "--------------------"
-    update-alternatives --set editor /usr/bin/vim.basic
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # setup lxd
-    echo "--------------------"
-    echo "setup lxd"
-    echo "--------------------"
-    /bin/bash /vagrant.conf/add-bridge.sh
-    cp /vagrant.conf/add-bridge.sh /etc/rc.local
-    chmod 700 /etc/rc.local
-    /bin/bash /vagrant.conf/lxd-setup.sh
-    echo ""
-    echo "complete."
-    echo ""
-    
-    # reboot
-    echo "--------------------"
-    echo "reboot"
-    echo "--------------------"
-    echo "The setup process is complete."
-    echo "Reboot the server. Please wait for a little while."
-    echo ""
-    shutdown -r now
-    
-  SHELL
+  config.vm.provision :shell, :path => "./vagrant.sh.d/setup1-ubuntu.sh"
+  config.vm.provision :shell, :path => "./vagrant.sh.d/setup2-lxd.sh"
+  config.vm.provision :shell, :path => "./vagrant.sh.d/setup3-reboot.sh"
 
 end
