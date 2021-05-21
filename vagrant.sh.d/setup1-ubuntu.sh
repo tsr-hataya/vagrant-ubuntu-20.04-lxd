@@ -57,7 +57,7 @@ echo ""
 echo "==> [TASK9] Set the locale."
 apt install -y language-pack-ja-base language-pack-ja
 update-locale LANG=ja_JP.UTF-8
-cat /vagrant.conf.d/set-locale.txt >> /etc/bash.bashrc
+cat /vagrant.conf.d/set-locale >> /etc/bash.bashrc
 echo ""
 
 # ----- [TASK10] -----
