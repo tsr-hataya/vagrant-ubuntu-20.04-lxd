@@ -8,7 +8,7 @@ echo ""
 
 # ----- [TASK1] -----
 echo "==> [TASK1] Set the dns servers."
-sed -i.`date '+%Y%m%d-%H%M%S'` 's|#DNS=|DNS=8.8.8.8 8.8.8.4|' /etc/systemd/resolved.conf
+sed -i.`date '+%Y%m%d-%H%M%S'` 's|#DNS=|DNS=8.8.8.8 8.8.4.4|' /etc/systemd/resolved.conf
 systemctl restart systemd-resolved
 echo ""
 
