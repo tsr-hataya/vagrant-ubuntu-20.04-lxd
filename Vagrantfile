@@ -22,7 +22,11 @@ Vagrant.configure("2") do |config|
         "--uart3", "off",
         "--uart4", "off",
         "--usb", "off",
-        "--nicpromisc2", "allow-all"
+       "--nicpromisc2", "allow-all",
+        "--description", "How to log in
+・cmd: vagrant ssh
+・TeraTerm: ttermpro.exe localhost:2222 /auth=publickey /user=vagrant /keyfile=$VAGRANT_DIR/.vagrant/machines/default/virtualbox/private_key
+・Console: login vagrant / password vagrant"
     ]
   end
   
