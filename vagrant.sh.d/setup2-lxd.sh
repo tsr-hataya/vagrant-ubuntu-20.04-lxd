@@ -20,7 +20,7 @@ echo "==> [TASK2] Add a bridge interface."
 NIC0=`ip address show | grep "inet 10." |  awk '{print $8}'`
 echo "NIC0=${NIC0}"
 
-NIC1=`ip address show | grep "inet 192.168.56." |  awk '{print $8}'`
+NIC1=`ip address show | grep "inet 192.168.56." |  awk '{print $7}'`
 echo "NIC1=${NIC1}"
 
 IPADDR1=`ip address show | grep "inet 192.168.56." |  awk '{print $2}'`
