@@ -6,14 +6,14 @@ echo "==>> [SETUP2] Initial setup of LXD."
 echo "==>>"
 echo ""
 
-# ----- [TASK1] -----
-echo "==> [TASK1] Install some packages."
+# ----- [SETUP2-TASK1] -----
+echo "==> [SETUP2-TASK1] Install some packages."
 apt install -y bridge-utils
 echo ""
 
 
-# ----- [TASK2] -----
-echo "==> [TASK2] Add a bridge interface."
+# ----- [SETUP2-TASK2] -----
+echo "==> [SETUP2-TASK2] Add a bridge interface."
 
 # 変数をセット
 
@@ -36,8 +36,8 @@ sed -i "s|==IPADDR1==|${IPADDR1}|g" /etc/netplan/50-lxdbr1.yaml
 echo ""
 
 
-# ----- [TASK3] -----
-echo "==> [TASK3] Start initial setup of LXD."
+# ----- [SETUP2-TASK3] -----
+echo "==> [SETUP2-TASK3] Start initial setup of LXD."
 
 # vagrantユーザーをlxdグループに追加
 echo "gpasswd --add vagrant lxd"
