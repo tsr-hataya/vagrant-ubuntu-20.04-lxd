@@ -28,11 +28,11 @@ echo "IPADDR1=${IPADDR1}"
 
 mv /etc/netplan/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml-`date '+%Y%m%d-%H%M%S'`
 mv /etc/netplan/50-vagrant.yaml /etc/netplan/50-vagrant.yaml-`date '+%Y%m%d-%H%M%S'`
-cp /vagrant.conf.d/50-lxdbr0.yaml /etc/netplan/50-lxdbr0.yaml
-sed -i "s|==NIC0==|${NIC0}|g" /etc/netplan/50-lxdbr0.yaml
-cp /vagrant.conf.d/50-lxdbr1.yaml /etc/netplan/50-lxdbr1.yaml
-sed -i "s|==NIC1==|${NIC1}|g" /etc/netplan/50-lxdbr1.yaml
-sed -i "s|==IPADDR1==|${IPADDR1}|g" /etc/netplan/50-lxdbr1.yaml
+cp /vagrant.conf.d/50-br0.yaml /etc/netplan/50-br0.yaml
+sed -i "s|==NIC0==|${NIC0}|g" /etc/netplan/50-br0.yaml
+cp /vagrant.conf.d/50-br1.yaml /etc/netplan/50-br1.yaml
+sed -i "s|==NIC1==|${NIC1}|g" /etc/netplan/50-br1.yaml
+sed -i "s|==IPADDR1==|${IPADDR1}|g" /etc/netplan/50-br1.yaml
 echo ""
 
 
