@@ -5,7 +5,7 @@ network:
     ==NIC0==:
       dhcp4: false
   bridges:
-    lxdbr0:
+    br0:
       interfaces:
         - ==NIC0==
       dhcp4: true
